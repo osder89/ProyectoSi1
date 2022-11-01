@@ -54,7 +54,7 @@ import {
 import {
   obtenerIdPedido,
   obtenerIdProducto,
-} from "../controller/CU9.GestionarPedidoTotalDiario.js";
+} from "../controller/FuncionesExtras.js";
 const router = Router();
 
 /*---------Empleados-----------*/
