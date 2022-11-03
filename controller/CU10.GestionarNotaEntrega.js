@@ -28,8 +28,8 @@ export const createEntrega = async (req, res) => {
     const { fecha} =
     req.body;
   const [result] = await pool.query(
-    "insert into NOTAENTREGA( fecha ) values(?)",
-    [ fecha ]
+    "insert into NOTAENTREGA( fecha ) values(?)"
+    
   );
   res.json({
     id: result.insertId,
