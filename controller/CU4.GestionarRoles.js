@@ -65,4 +65,4 @@ export const deleteRol = async (req, res) => {
 
 // Path: ProyectoSi1\controller\CU4.GestionarRoles.js
 // Compare this snippet from ProyectoSi1\config.js:
-// export const PORT=4000
+// export const PORT=3000
