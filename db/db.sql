@@ -159,3 +159,15 @@ create table entregaProducto(
   ON UPDATE CASCADE
   ON DELETE CASCADE
 );
+
+
+/*-----Poblado de tablas-----*/
+insert into ROL(id, nombre, descripcion)values
+(1,'Admi','Puede ingresara todo y hacer todo'),
+(2,'Usuario','Puede ingresar a todo y ver todo pero no agregar, editar ni eliminar nada'),
+(3,'Secretaria','Puede ingresar a datos en todos los modulos y editarlos pero no asi eliminarlos'),
+(4,'Encargado de ventas','Permiso a todos las operaciones del modulo de ventas'),
+(5,'Encargado de almacen','Permiso a todos las operaciones del modulo de almacen'),
+(6,'Encargado de produccion','Permiso a todos las operaciones del modulo de produccion'),
+(7,'Maestro de produccion','Permiso a todos las operaciones del modulo de produccion');
+select * from ROL;

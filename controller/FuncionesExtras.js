@@ -50,7 +50,7 @@ export const obtenerIdProducto = async (req, res) => {
 
   /*funcion que  multiplica el precio por la cantidad y suma 
 actualizar en el total del pedido pasar el id del ultimo pedido arriba la funcion para obtenerlo*/
-export const getUsuario = async (req, res) => {
+export const TotalDetalleVenta = async (req, res) => {
     try {
       const [result] = await pool.query("select sum(precio * cantidad) from DETALLEVENTA where  idPedido =?", [
         req.params.id
@@ -59,3 +59,21 @@ export const getUsuario = async (req, res) => {
       return res.status(500).json({ message: error.message });
     }
   };
+
+/* funcion que obtiene el id del cargo con el nombre */
+/* devuelve el numero del pedido mas reciente */
+export const obtenerIdCargo = async (req, res) => {
+  try {
+    const [result] = await pool.query("select id from CARGO where nombre=?",[
+      req.params.nombre
+    ]);
+    if (result.length === 0) {
+      return res
+        .estatus(400)
+        .json({ message: "No hay ningun cargo resgistrado " });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
