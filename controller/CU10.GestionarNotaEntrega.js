@@ -23,17 +23,19 @@ export const getEntrega = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+// FORMATO DE LA FECHA AAAA/MM/DD
 export const createEntrega = async (req, res) => {
   try {
-    const { fecha} =
+    const { fecha, idEmpleado} =
     req.body;
   const [result] = await pool.query(
-    "insert into NOTAENTREGA( fecha ) values(?)"
-    
+    "insert into NOTAENTREGA( fecha, idEmpleado ) values(?,?)",
+    [fecha, idEmpleado]
   );
   res.json({
     id: result.insertId,
-    fecha
+    fecha,
+    idEmpleado
     
   });
   } catch (error) {

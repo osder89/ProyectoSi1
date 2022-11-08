@@ -1,49 +1,51 @@
 import { pool } from "../db/db.js";
 
-export const getRecetas = async (req, res) => {
+export const getCompras = async (req, res) => {
   try {
-    const [result] = await pool.query("select * from RECETA ");
+    const [result] = await pool.query("select * from NOTACOMPRA ");
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const getReceta = async (req, res) => {
+export const getCompra = async (req, res) => {
   try {
-    const [result]  = await pool.query("select * from RECETA where id=?", [
+    const [result]  = await pool.query("select * from NOTACOMPRA where id=?", [
       req.params.id,
     ]);
     if (result.length === 0) {
       return res
         .estatus(400)
-        .json({ message: "No hay ninguna receta resgistrada" });
+        .json({ message: "No hay ninguna compra resgistrada" });
     }
     res.json(result[0]);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const createReceta = async (req, res) => {
+// FORMATO DE LA FECHA AAAA/MM/DD
+export const createCompra = async (req, res) => {
   try {
-    const { nombre, descripcion, idMasa } =
+    const { fecha, total, idEmpleado} =
     req.body;
   const [result] = await pool.query(
-    "insert into RECETA( nombre, descripcion, idMasa ) values(?,?,?)",
-    [ nombre, descripcion, idMasa ]
+    "insert into NOTACOMPRA( fecha, total, idEmpleado ) values(?,?,?)",
+    [fecha, total, idEmpleado]
   );
   res.json({
     id: result.insertId,
-    nombre, 
-    descripcion,
-     idMasa
+    fecha,
+    total,
+    idEmpleado
+    
   });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const updateReceta = async (req, res) => {
+export const updateCompra = async (req, res) => {
   try {
-    const [result]  = await pool.query("update RECETA set ? where id=?", [
+    const [result]  = await pool.query("update NOTACOMPRA set ? where id=?", [
       req.body,
       req.params.id,
     ]);
@@ -52,14 +54,14 @@ export const updateReceta = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-export const deleteReceta = async (req, res) => {
+export const deleteCompra = async (req, res) => {
   try {
-    const [result]  = await pool.query("delete  from RECETA where id=?", [
+    const [result]  = await pool.query("delete  from NOTACOMPRA where id=?", [
       req.params.id,
     ]);
     if(result.affectedRows===0)
     {
-      return res.status(404).json({message:'No se encuentra ninguna receta'})
+      return res.status(404).json({message:'No se encuentra ninguna compra'})
     }
     return res.sendStatus(204);
   } catch (error) {

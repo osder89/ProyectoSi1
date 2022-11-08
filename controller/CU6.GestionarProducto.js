@@ -25,18 +25,18 @@ export const getProducto = async (req, res) => {
 };
 export const createProducto = async (req, res) => {
   try {
-    const { nombre, precio, descripcion, idReceta } =
+    const { nombre, precio, cantidad, descripcion } =
     req.body;
   const [result] = await pool.query(
-    "insert into PRODUCTO( nombre, precio, descripcion, idReceta ) values(?,?,?,?)",
+    "insert into PRODUCTO( nombre, precio,cantidad, descripcion,  ) values(?,?,?,?)",
     [ nombre, precio, descripcion, idReceta ]
   );
   res.json({
     id: result.insertId,
     nombre, 
     precio,
-    descripcion, 
-    idReceta
+    cantidad,
+    descripcion 
      
   });
   } catch (error) {

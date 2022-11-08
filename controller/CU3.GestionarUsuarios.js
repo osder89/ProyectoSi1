@@ -26,16 +26,18 @@ export const getUsuario = async (req, res) => {
 };
 export const createUsuario = async (req, res) => {
   try {
-    const { login, password  } =
+    const { login, password, idEmpleado, idRol  } =
     req.body;
   const [result] = await pool.query(
-    "insert into USUARIO(login, password ) values(?,?)",
-    [ login, password]
+    "insert into USUARIO(login, password, idEmpleado, idRol ) values(?,?,?,?)",
+    [ login, password, idEmpleado, idRol]
   );
   res.json({
     id: result.insertId,
     login, 
-    password
+    password,
+    idEmpleado,
+    idRol
    
   });
   } catch (error) {
