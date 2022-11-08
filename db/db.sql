@@ -193,3 +193,41 @@ insert into ROL(id, nombre, descripcion)values
 (6,'Encargado de produccion','Permiso a todos las operaciones del modulo de produccion'),
 (7,'Maestro de produccion','Permiso a todos las operaciones del modulo de produccion');
 select * from ROL;
+
+insert into CLIENTE (nombre,apellido,direccion,ci,telefono, fechaNacimiento) values
+('Juan','Terceros','Plan 3000','111',3856978,'1997/09/12'),
+('Alex','Claros','Los pocitos','222',3856979,'1999/01/22'),
+('Alejandro','Perez','Guapuru','333',3856981,'1980/06/02'),
+('Pedro','Mamani','La primavera','444',3856982,'1978/05/09'),
+('Maria','Flores','La villa','555',3856983,'1990/03/19');
+select * from CLIENTE;
+
+insert into CARGO(nombre,sueldo)values
+('Secretaria',2100),
+('Supervisor de Inventario',2500),
+('Maestro de panaderia',2500),
+('Ayudante',1800);
+select* from CARGO;
+
+insert into EMPLEADO(nombre,apellido,ci,direccion,sexo, fechaNacimiento, idCargo) values
+('Sara','Menacho',888,'1er anillo /Avenida brasil','F','1997/09/12',1),
+('Angel','Carrasco',889,'Barrio las palmas','M','1999/01/22',2),
+('Genaro','Martines',891,'km 13','M','1980/06/02',3),
+('Fernando','Perez',890,'Plan 300','M','1978/05/09',4);
+select * from EMPLEADO;
+
+insert into USUARIO(login,password, idRol,idEmpleado)values
+('Sarita',123456,1,1),
+('Angel',1234567,2,2),
+('Fernando',1234567,3,3),
+('Genaro',1234567,4,4);
+select * from USUARIO;
+
+insert into PRODUCTO(nombre,precio,cantidad,descripcion) values
+('pan frances',0.5,1,'rico pan frances'),
+('pan con queso',1,1,'pan con mucho queso'),
+('pan mollete',3,1,'dulce');
+select * from PRODUCTO;
+
+
+
