@@ -22,15 +22,17 @@ export const auth = async (req, res) => {  //verifica la contrase;a e inicia ses
 			result.forEach(async element => {
 				
 				// const password = data.Password;
-				await bcrypt.compare(data.Password, element.Password, (err, isMatch) => {
+				 bcrypt.compare(data.Password, element.Password, (err, isMatch) => {
 					if (!isMatch) {
 						// res.render('login/index', {error: 'Error: contase;a incorrecta'});
-						res.json({ message: "Contraseña Incorrecta, redireccionando a: /login" });
+						// res.json({ message: "Contraseña Incorrecta, redireccionando a: /login" });
+                        console.log("Contraseña Incorrecta, redireccionando a: /login");
 					} else {
 						req.session.loggedin = true;   //sesion logueada
 						req.session.name = element.name;
 						// res.redirect('/');      // ("/")  <-- es la ruta raiz o el home
-						res.json({ message: "Login correcto, redireccionando a: /" });
+						// res.json({ message: "Login correcto, redireccionando a: /" });
+                        console.log("Login correcto, redireccionando a: /");
 					}
 				});
 			});
@@ -78,25 +80,10 @@ export const storeUser = async (req, res) => {
 			}
 
 
-			const [result] = await pool.query("insert into USUARIO(login, Password, idEmpleado, idRol ) values(?,?,?,?)",[ users.login, users.Password, users.idEmpleado, users.idRol],
-				
-				function (error, results, fields) {
-					
-					if (error) {
-						res.send({
-							"code": 400,
-							"failed": "error occurred",
-							"error": error
-						})
-					} else {
-						res.send({
-							"code": 200,
-							"success": "USUARIO REGISTRADO SATISFACTORIAMENTE"
-	
-						});
-					}
-				}
-			);
+			const [result] = await pool.query(
+                "insert into USUARIO(login, Password, idEmpleado, idRol ) values(?,?,?,?)",
+                [ users.login, users.Password, users.idEmpleado, users.idRol]  
+            );
 			res.json({
 				id: result.insertId,
 				login: users.login, 
