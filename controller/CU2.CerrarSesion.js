@@ -1,13 +1,13 @@
-//cerrar sesion
-export const logout = async (req, res) => {
-    try {
+// //cerrar sesion
+// export const logout = async (req, res) => {
+//     try {
         
-        req.session.loggedin = false;
-        res.json({ message: "Cerro Sesion" });
-        res.json({ message: "Redireccionando a: /" });
-        // res.redirect('/');
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    } 
+//         req.session.loggedin = false;
+//         res.json({ message: "Cerro Sesion" });
+//         res.json({ message: "Redireccionando a: /" });
+//         // res.redirect('/');
+//     } catch (error) {
+//         return res.status(500).json({ message: error.message });
+//     } 
     
-}
+// }
