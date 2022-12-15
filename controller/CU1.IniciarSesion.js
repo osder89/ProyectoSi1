@@ -2,51 +2,51 @@ import { pool } from "../db/db.js";
 import bcrypt from 'bcrypt'
 
 
-export const login = async (req, res) => {
-	if (req.session.loggedin != true) {
-		// res.render('login/index');         //aqui vala ruta del html, la vista
-		res.json({ message: "Redireccionando a: /login" });
-	} else {
-		// res.redirect('/');
-		res.json({ message: "Redireccionando a: /" });
-	}
-};
+// export const login = async (req, res) => {
+// 	if (req.session.loggedin != true) {
+// 		// res.render('login/index');         //aqui vala ruta del html, la vista
+// 		res.json({ message: "Redireccionando a: /login" });
+// 	} else {
+// 		// res.redirect('/');
+// 		res.json({ message: "Redireccionando a: /" });
+// 	}
+// };
 
-export const auth = async (req, res) => {  //verifica la contrase;a e inicia sesion
-	try {
-		const data = req.body;
-		const [result] = await pool.query('SELECT * FROM USUARIO WHERE  login = ?', [data.login]);
+// export const auth = async (req, res) => {  //verifica la contrase;a e inicia sesion
+// 	try {
+// 		const data = req.body;
+// 		const [result] = await pool.query('SELECT * FROM USUARIO WHERE  login = ?', [data.login]);
 
 
-		if (result.length > 0) { //el usuario si existe
-			result.forEach( element => {
+// 		if (result.length > 0) { //el usuario si existe
+// 			result.forEach( element => {
 				
-				// const password = data.Password;
-				 bcrypt.compare(data.Password, element.Password, (err, isMatch) => {
-					if (!isMatch) {
-						// res.render('login/index', {error: 'Error: contase;a incorrecta'});
-						// res.json({ message: "Contraseña Incorrecta, redireccionando a: /login" });
-                        console.log("Contraseña Incorrecta, redireccionando a: /login");
-					} else {
-						req.session.loggedin = true;   //sesion logueada
-						req.session.name = element.name;
-						// res.redirect('/');      // ("/")  <-- es la ruta raiz o el home
-						// res.json({ message: "Login correcto, redireccionando a: /" });
-                        console.log("Login correcto, redireccionando a: /");
-					}
-				});
-			});
-		} else { //el usuario no existe
-			// res.render('login/index', { error: 'Error: el usuario no existe' })
-			res.json({ message: "Usuario no existe, redireccionando a: /login/index" });
-		}
-		res.json({
-			login
-		});
-	} catch (error) {
-		return res.status(500).json({ message: error.message });
-	}
-}
+// 				// const password = data.Password;
+// 				 bcrypt.compare(data.Password, element.Password, (err, isMatch) => {
+// 					if (!isMatch) {
+// 						// res.render('login/index', {error: 'Error: contase;a incorrecta'});
+// 						// res.json({ message: "Contraseña Incorrecta, redireccionando a: /login" });
+//                         console.log("Contraseña Incorrecta, redireccionando a: /login");
+// 					} else {
+// 						req.session.loggedin = true;   //sesion logueada
+// 						req.session.name = element.name;
+// 						// res.redirect('/');      // ("/")  <-- es la ruta raiz o el home
+// 						// res.json({ message: "Login correcto, redireccionando a: /" });
+//                         console.log("Login correcto, redireccionando a: /");
+// 					}
+// 				});
+// 			});
+// 		} else { //el usuario no existe
+// 			// res.render('login/index', { error: 'Error: el usuario no existe' })
+// 			res.json({ message: "Usuario no existe, redireccionando a: /login/index" });
+// 		}
+// 		res.json({
+// 			login
+// 		});
+// 	} catch (error) {
+// 		return res.status(500).json({ message: error.message });
+// 	}
+// }
 
 export const register = async (req, res) => {
 	if (res.session.loggedin != true) {
