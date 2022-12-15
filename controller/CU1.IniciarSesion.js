@@ -1,5 +1,5 @@
-import { pool } from "../db/db.js";
-import bcrypt from 'bcrypt'
+// import { pool } from "../db/db.js";
+// import bcrypt from 'bcrypt'
 
 
 // export const login = async (req, res) => {
@@ -48,55 +48,55 @@ import bcrypt from 'bcrypt'
 // 	}
 // }
 
-export const register = async (req, res) => {
-	if (res.session.loggedin != true) {
-		// res.render('login/register');         //aqui vala ruta del html, la vista
-		res.json({ message: "Redireccionando a: login/register" });
-	} else {
-		// res.redirect('/');
-		res.json({ message: "Redireccionando a: /" });
-	}
-};
+// export const register = async (req, res) => {
+// 	if (res.session.loggedin != true) {
+// 		// res.render('login/register');         //aqui vala ruta del html, la vista
+// 		res.json({ message: "Redireccionando a: login/register" });
+// 	} else {
+// 		// res.redirect('/');
+// 		res.json({ message: "Redireccionando a: /" });
+// 	}
+// };
 
 
-export const storeUser = async (req, res) => {
+// export const storeUser = async (req, res) => {
 
-	try {
-		const data = req.body;
-		const [result] = await pool.query('SELECT * FROM USUARIO WHERE login = ?', [data.login]);
+// 	try {
+// 		const data = req.body;
+// 		const [result] = await pool.query('SELECT * FROM USUARIO WHERE login = ?', [data.login]);
 
-		if (result.length > 0) {
-			// return res.status(400).json({ message: "El usuario ya existe" });
-			// res.render('login/register', { error: 'Error: el usuario ya existe' });  //(login/register)-->ahi va la ubicacion de la pagina del formulario(vistas el html)
-			res.json({ message: "El usuario ya existe, redireccionando a: /login/register" });
-		} else {
-			const password = data.Password;
-			const encryptedPassword = await bcrypt.hash(password, 12)
-			let users = {
-				"login": req.body.login,
-				"Password": encryptedPassword,
-				"idEmpleado": req.body.idEmpleado,
-				"idRol": req.body.idRol
-			}
+// 		if (result.length > 0) {
+// 			// return res.status(400).json({ message: "El usuario ya existe" });
+// 			// res.render('login/register', { error: 'Error: el usuario ya existe' });  //(login/register)-->ahi va la ubicacion de la pagina del formulario(vistas el html)
+// 			res.json({ message: "El usuario ya existe, redireccionando a: /login/register" });
+// 		} else {
+// 			const password = data.Password;
+// 			const encryptedPassword = await bcrypt.hash(password, 12)
+// 			let users = {
+// 				"login": req.body.login,
+// 				"Password": encryptedPassword,
+// 				"idEmpleado": req.body.idEmpleado,
+// 				"idRol": req.body.idRol
+// 			}
 
 
-			const [result] = await pool.query(
-                "insert into USUARIO(login, Password, idEmpleado, idRol ) values(?,?,?,?)",
-                [ users.login, users.Password, users.idEmpleado, users.idRol]  
-            );
-			res.json({
-				id: result.insertId,
-				login: users.login, 
-				Password:users.Password, 
-				idEmpleado: users.idEmpleado, 
-				idRol:users.idRol
-			});
-			req.session.loggedin = true;   //sesion logueada
-			req.session.name = data.name;
-			res.json({ message: "Sesion iniciada con exito" });
-		}
+// 			const [result] = await pool.query(
+//                 "insert into USUARIO(login, Password, idEmpleado, idRol ) values(?,?,?,?)",
+//                 [ users.login, users.Password, users.idEmpleado, users.idRol]  
+//             );
+// 			res.json({
+// 				id: result.insertId,
+// 				login: users.login, 
+// 				Password:users.Password, 
+// 				idEmpleado: users.idEmpleado, 
+// 				idRol:users.idRol
+// 			});
+// 			req.session.loggedin = true;   //sesion logueada
+// 			req.session.name = data.name;
+// 			res.json({ message: "Sesion iniciada con exito" });
+// 		}
 		
-	} catch (error) {
-		console.log(error);
-	}
-};
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+// };
