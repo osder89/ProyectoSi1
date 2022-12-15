@@ -19,7 +19,7 @@ export const auth = async (req, res) => {  //verifica la contrase;a e inicia ses
 
 
 		if (result.length > 0) { //el usuario si existe
-			result.forEach(async element => {
+			result.forEach( element => {
 				
 				// const password = data.Password;
 				 bcrypt.compare(data.Password, element.Password, (err, isMatch) => {
