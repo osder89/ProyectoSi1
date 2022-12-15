@@ -124,7 +124,7 @@ createDetalleCompra,
 // }from "../controller/CU2.CerrarSesion.js";
 
 
-// const router = Router();
+ const router = Router();
 
 
 // /*---------login-registro----- */
@@ -241,7 +241,6 @@ router.get("/detCompra/:id", getDetalleCompra);
 router.post("/detCompra", createDetalleCompra);
 router.put("/detCompra/:id",updateDetalleCompra);
 router.delete("/detCompra/:id", deleteDetalleCompra);
- /* */
 
 
 
