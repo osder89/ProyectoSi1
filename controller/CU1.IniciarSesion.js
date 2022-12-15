@@ -1,50 +1,115 @@
 import { pool } from "../db/db.js";
+import bcrypt from 'bcrypt'
 
-// http://localhost:3000/
-app.get('/', function(request, response) {
-	// Render login template
-	response.sendFile(path.join(__dirname + '/login.html'));
-});
 
-// http://localhost:3000/auth
-app.post('/auth', function(request, response) {
-	// Capture the input fields
-	let username = request.body.username;
-	let password = request.body.password;
-	// Ensure the input fields exists and are not empty
-	if (username && password) {
-		// Execute SQL query that'll select the account from the database based on the specified username and password
-		 pool.query('SELECT * FROM USUARIO WHERE login = ? AND Password = ?', [username, password], function(error, results, fields) {
-			// If there is an issue with the query, output the error
-			if (error) throw error;
-			// If the account exists
-			if (results.length > 0) {
-				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = username;
-				// Redirect to home page
-				response.redirect('/home');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
+export const login = async (req, res) => {
+	if (req.session.loggedin != true) {
+		// res.render('login/index');         //aqui vala ruta del html, la vista
+		res.json({ message: "Redireccionando a: /login" });
+	} else {
+		// res.redirect('/');
+		res.json({ message: "Redireccionando a: /" });
+	}
+};
+
+export const auth = async (req, res) => {  //verifica la contrase;a e inicia sesion
+	try {
+		const data = req.body;
+		const [result] = await pool.query('SELECT * FROM USUARIO WHERE  login = ?', [data.login]);
+
+
+		if (result.length > 0) { //el usuario si existe
+			result.forEach(async element => {
+				
+				// const password = data.Password;
+				await bcrypt.compare(data.Password, element.Password, (err, isMatch) => {
+					if (!isMatch) {
+						// res.render('login/index', {error: 'Error: contase;a incorrecta'});
+						res.json({ message: "Contraseña Incorrecta, redireccionando a: /login" });
+					} else {
+						req.session.loggedin = true;   //sesion logueada
+						req.session.name = element.name;
+						// res.redirect('/');      // ("/")  <-- es la ruta raiz o el home
+						res.json({ message: "Login correcto, redireccionando a: /" });
+					}
+				});
+			});
+		} else { //el usuario no existe
+			// res.render('login/index', { error: 'Error: el usuario no existe' })
+			res.json({ message: "Usuario no existe, redireccionando a: /login/index" });
+		}
+		res.json({
+			login
 		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
+	} catch (error) {
+		return res.status(500).json({ message: error.message });
 	}
-});
+}
 
-// http://localhost:3000/home
-app.get('/home', function(request, response) {
-	// If the user is loggedin
-	if (request.session.loggedin) {
-		// Output username
-		response.send('Welcome back, ' + request.session.username + '!');
+export const register = async (req, res) => {
+	if (res.session.loggedin != true) {
+		// res.render('login/register');         //aqui vala ruta del html, la vista
+		res.json({ message: "Redireccionando a: login/register" });
 	} else {
-		// Not logged in
-		response.send('Please login to view this page!');
+		// res.redirect('/');
+		res.json({ message: "Redireccionando a: /" });
 	}
-	response.end();
-});
+};
 
+
+export const storeUser = async (req, res) => {
+
+	try {
+		const data = req.body;
+		const [result] = await pool.query('SELECT * FROM USUARIO WHERE login = ?', [data.login]);
+
+		if (result.length > 0) {
+			// return res.status(400).json({ message: "El usuario ya existe" });
+			// res.render('login/register', { error: 'Error: el usuario ya existe' });  //(login/register)-->ahi va la ubicacion de la pagina del formulario(vistas el html)
+			res.json({ message: "El usuario ya existe, redireccionando a: /login/register" });
+		} else {
+			const password = data.Password;
+			const encryptedPassword = await bcrypt.hash(password, 12)
+			let users = {
+				"login": req.body.login,
+				"Password": encryptedPassword,
+				"idEmpleado": req.body.idEmpleado,
+				"idRol": req.body.idRol
+			}
+
+
+			const [result] = await pool.query("insert into USUARIO(login, Password, idEmpleado, idRol ) values(?,?,?,?)",[ users.login, users.Password, users.idEmpleado, users.idRol],
+				
+				function (error, results, fields) {
+					
+					if (error) {
+						res.send({
+							"code": 400,
+							"failed": "error occurred",
+							"error": error
+						})
+					} else {
+						res.send({
+							"code": 200,
+							"success": "USUARIO REGISTRADO SATISFACTORIAMENTE"
+	
+						});
+					}
+				}
+			);
+			res.json({
+				id: result.insertId,
+				login: users.login, 
+				Password:users.Password, 
+				idEmpleado: users.idEmpleado, 
+				idRol:users.idRol
+			});
+			req.session.loggedin = true;   //sesion logueada
+			req.session.name = data.name;
+			res.json({ message: "Sesion iniciada con exito" });
+		}
+		
+	} catch (error) {
+		console.log(error);
+	}
+};

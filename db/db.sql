@@ -48,7 +48,7 @@ create table USUARIO
 (
  id int not null auto_increment , 
  login varchar(40) not null, 
- Password varchar(40) not null, 
+ Password varchar(100) not null, 
  idEmpleado int not null, 
  idRol int not null,
  primary key (id),
