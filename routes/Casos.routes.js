@@ -116,11 +116,11 @@ import{
   login,
   register,
   storeUser,
-  auth,
+  auth
 }from "../controller/CU1.IniciarSesion.js";
 
 import{
-  logout,
+  logout
 }from "../controller/CU2.CerrarSesion.js";
 
 
