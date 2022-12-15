@@ -113,10 +113,10 @@ createDetalleCompra,
 
 
 import{
-  login,
+  // login,
   register,
-  storeUser,
-  auth
+  storeUser
+  // auth
 }from "../controller/CU1.IniciarSesion.js";
 
 import{
