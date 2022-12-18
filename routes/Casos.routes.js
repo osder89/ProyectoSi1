@@ -5,35 +5,35 @@ import {
   createEmpleado,
   updateEmpleado,
   deleteEmpleado,
-} from "../controller/CU20.GestionarEmpleados.js";
+} from "../M1.USUARIO/CU20.GestionarEmpleados.js";
 import {
   getUsuarios,
   getUsuario,
   createUsuario,
   updateUsuario,
   deleteUsuario,
-} from "../controller/CU3.GestionarUsuarios.js";
+} from "../M1.USUARIO/CU3.GestionarUsuarios.js";
 import {
   getCargos,
   getCargo,
   createCargo,
   updateCargo,
   deleteCargo,
-} from "../controller/Cargo.js";
+} from "../M1.USUARIO/Cargo.js";
 import {
   getClientes,
   getCliente,
   updateCliente,
   deleteCliente,
   createCliente,
-} from "../controller/CU5.GestionarClientes.js";
+} from "../M2.VENTA/CU5.GestionarClientes.js";
 import {
   getProductos,
   getProducto,
   createProducto,
   updateProducto,
   deleteProducto,
-} from "../controller/CU6.GestionarProducto.js";
+} from "../M2.VENTA/CU6.GestionarProducto.js";
 
 import {
   getRoles,
@@ -41,7 +41,7 @@ import {
   createRol,
   updateRol,
   deleteRol,
-} from "../controller/CU4.GestionarRoles.js";
+} from "../M1.USUARIO/CU4.GestionarRoles.js";
 
 import {
   getPedidos,
@@ -49,66 +49,66 @@ import {
   createPedido,
   updatePedido,
   deletePedido,
-} from "../controller/CU7.GestionarPedido.js";
+} from "..//M2.VENTA/CU7.GestionarPedido.js";
 
 import {
   obtenerIdPedido,
   obtenerIdProducto,
-} from "../controller/FuncionesExtras.js";
+} from "../FUNCIONES/FuncionesExtras.js";
  import{
  getDetPedido,
  getDetPedidos,
  createDetPedido,
  updateDetPedido,
  deleteDetPedido,
-}from "../controller/CU8.GestionarDetalleVenta.js";
+}from "../M2.VENTA/CU8.GestionarDetalleVenta.js";
 import{
  TotalDetalle,
  TotalPorProducto,
  obtenerCantidadProductos,
-}from "../controller/CU9.GestionarPedidoTotalDiario.js"
+}from "../M2.VENTA/CU9.GestionarPedidoTotalDiario.js"
 import{
  getEntrega,
  getEntregas,
  updateEntrega,
  createEntrega,
  deleteEntrega,
-}from "../controller/CU10.GestionarNotaEntrega.js"
+}from "../M2.VENTA/CU10.GestionarNotaEntrega.js"
 import{
 getProveedor,
 getProveedors,
 createProveedor,
 deleteProveedor,
 updateProveedor,
-}from "../controller/CU11.GestionarProveedor.js"
+}from "../M3.INVENTARIO/CU11.GestionarProveedor.js"
 import{
 getMateria,
 getMaterias,
 createMateria,
 deleteMateria,
 updateMateria,
-}from "../controller/CU12.GestionarMateriaPrima.js"
+}from "../M3.INVENTARIO/CU12.GestionarMateriaPrima.js"
 import{
 getUnidad,
 getUnidades,
 createUnidad,
 updateUnidad,
 deleteUnidad,
-}from"../controller/CU14.GestionarUnidadMedida.js"
+}from"../M3.INVENTARIO/CU14.GestionarUnidadMedida.js"
 import{
 getCompra,
 getCompras,
 deleteCompra,
 updateCompra,
 createCompra,
-}from"../controller/CU16.GestionarNotaCompra.js"
+}from"../M3.INVENTARIO/CU16.GestionarNotaCompra.js"
 import{
 getDetalleCompras,
 getDetalleCompra,
 deleteDetalleCompra,
 updateDetalleCompra,
 createDetalleCompra,
-}from"../controller/CU17.GestionarDetalleCompra.js"
+}from"../M3.INVENTARIO/CU17.GestionarDetalleCompra.js"
 
 
 
