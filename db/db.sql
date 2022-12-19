@@ -181,6 +181,89 @@ create table DETALLECOMPRA
   on update cascade 
   on delete cascade
 );
+create table MAQUINA    
+(
+ id int not null auto_increment , 
+ nombre varchar (120) not null, 
+ capacidad varchar(120) not null, 
+ estado boolean,
+ primary key (id)
+);
+ 
+create table PROCESO 
+(
+ id int not null auto_increment, 
+ nombre varchar(120) not null, 
+ tiempo time not null, 
+ descripcion varchar(300) not null, 
+ idMaquina int not null,
+ primary key (id),
+  foreign key (idMaquina) references MAQUINA ( id)
+   ON UPDATE CASCADE
+   ON DELETE CASCADE 
+ 
+);
+ 
+create table RECETA 
+(
+ id int not null auto_increment, 
+ nombre varchar(100) not null, 
+ descripcion varchar(300) not null, 
+ primary key(id)
+);
+create table INGREDIENTE
+(
+ idMateria int not null, 
+ idReceta int not null,
+ cantidad float not null,
+ primary key ( idMateria , idReceta) , 
+ foreign key  ( idMateria ) references MATERIA (id) 
+ on update cascade 
+  on delete cascade, 
+  foreign key (idReceta) references RECETA ( id ) 
+  on update cascade 
+  on delete cascade
+);
+
+create table procesoProducto
+(
+ idProceso int not null ,
+ idProducto int not null,
+ foreign key (idProceso) references PROCESO (id)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE,
+ foreign key (idProducto) references PRODUCTO (id)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE 
+);
+create table EMPLEADOMAQUINA
+(
+ idEmpleado int not null, 
+ idMaquina int not null, 
+ estadoEmpleado boolean not null,
+ primary key ( idEmpleado , idMaquina) , 
+ foreign key  ( idEmpleado ) references EMPLEADO(id) 
+ on update cascade 
+  on delete cascade, 
+  foreign key (idMaquina) references MAQUINA ( id) 
+  on update cascade 
+  on delete cascade
+);
+create table EMPLEADOPROCESO
+(
+idEmpleadoPro int not null, 
+idProceso int not null, 
+cantidadEmplePro int not null, 
+ estadoEmpleado boolean not null,
+ primary key ( idEmpleadoPro , idProceso) , 
+ foreign key  ( idEmpleadoPro ) references EMPLEADO(id) 
+ on update cascade 
+  on delete cascade, 
+  foreign key (idProceso) references PROCESO ( id) 
+  on update cascade 
+  on delete cascade
+);
+ 
 
 
 /*-----Poblado de tablas-----*/
@@ -270,3 +353,49 @@ insert into MATERIA(nombre, stock, stockMinimo, fechaVencimiento, idUnidad) valu
 ('Leche',59,10,'2022/09/30',3);
 select * from MATERIA;
 
+insert into MAQUINA(nombre,capacidad,estado) values
+('horno','100 panes',true),
+('sobadora','20 kg',false),
+('picadora','2.7kg',true);
+select * from MAQUINA;
+ 
+insert into PROCESO(nombre,tiempo,descripcion,idMaquina) values
+('amasado','01:10:00','proceso de amasar la masa',2),
+('picado','00:50:00','proceso de picado',3),
+('hornear','01:00:00','proceso de horneado',1);
+select * from PROCESO;
+
+insert into EMPLEADOPROCESO( idEmpleadoPro, idProceso, cantidadEmplePro, estadoEmpleado) values
+(1,1,1,true),
+(2,2,1,false),
+(3,3,1,true);
+select * from EMPLEADOPROCESO;
+ 
+insert into EMPLEADOMAQUINA( idEmpleado, idMaquina, estadoEmpleado) values
+(1,1,true),
+(2,2,false),
+(3,3,true);
+select * from EMPLEADOMAQUINA;
+insert into procesoProducto(idProceso, idProducto) values 
+(1,1),
+(2,2),
+(3,3),
+(2,1),
+(3,2);
+select * from procesoProducto;
+
+insert into RECETA(nombre,descripcion) values
+('pan frances','harina,leche,levadura'),
+('pan con queso','harina,leche,levadura,queso'),
+('pan mollete','harina,leche,levadura');
+ select * from RECETA;
+insert into INGREDIENTE(idMateria,idReceta,cantidad)values
+(1,1,1),
+(2,1,3),
+(1,2,1),
+(2,2,3),
+(1,3,1),
+(2,3,3),
+(3,1,1),
+(3,2,3);
+select * from INGREDIENTE;
