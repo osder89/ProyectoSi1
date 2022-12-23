@@ -1,4 +1,4 @@
-import { pool } from "../db/db.js";
+import { pool } from "../../db/db.js";
 
 export const getProcesos = async (req, res) => {
   try {

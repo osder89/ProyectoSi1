@@ -1,16 +1,16 @@
-import { pool } from "../db/db.js";
+import { pool } from "../../db/db.js";
 
-export const getPedidos = async (req, res) => {
+export const getDetPedidos = async (req, res) => {
   try {
-    const [result] = await pool.query("select * from PEDIDO ");
+    const [result] = await pool.query("select * from DETALLEVENTA ");
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const getPedido = async (req, res) => {
+export const getDetPedido = async (req, res) => {
   try {
-    const [result] = await pool.query("select * from PEDIDO where id=?", [
+    const [result] = await pool.query("select * from DETALLEVENTA  where idPedido=?", [
       req.params.id,
     ]);
     if (result.length === 0) {
@@ -23,27 +23,28 @@ export const getPedido = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-export const createPedido = async (req, res) => {
+export const createDetPedido = async (req, res) => {
   try {
-    const { detalle, idEmpleado, idCliente } =
+    const {  idPedido, idProducto, cantidad, precio } =
       req.body;
     const [result] = await pool.query(
-      "insert into PEDIDO( detalle, fecha, fechaEntrega, total, idEmpleado, idCliente ) values(?,CURDATE(),CURDATE(),0,?,?)",
-      [detalle, idEmpleado, idCliente]
+      "insert into DETALLEVENTA( idPedido, idProducto, cantidad, precio ) values(?,?,?,?)",
+      [idPedido, idProducto, cantidad, precio]
     );
     res.json({
       id: result.insertId,
-      detalle,
-      idEmpleado,
-      idCliente,
+      idPedido, 
+      idProducto, 
+      cantidad, 
+      precio
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const updatePedido = async (req, res) => {
+export const updateDetPedido = async (req, res) => {
   try {
-    const [result] = await pool.query("update PEDIDO set ? where id=?", [
+    const [result] = await pool.query("update DETALLEVENTA set ? where id=?", [
       req.body,
       req.params.id,
     ]);
@@ -52,9 +53,9 @@ export const updatePedido = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-export const deletePedido = async (req, res) => {
+export const deleteDetPedido = async (req, res) => {
   try {
-    const [result] = await pool.query("delete  from PEDIDO where id=?", [
+    const [result] = await pool.query("delete  from DETALLEVENTA where id=?", [
       req.params.id,
     ]);
     if (result.affectedRows === 0) {

@@ -5,35 +5,35 @@ import {
   createEmpleado,
   updateEmpleado,
   deleteEmpleado,
-} from "../M1.USUARIO/CU20.GestionarEmpleados.js";
+} from "../M1.USUARIO/CU20.empleados/CU20.GestionarEmpleados.js";
 import {
   getUsuarios,
   getUsuario,
   createUsuario,
   updateUsuario,
   deleteUsuario,
-} from "../M1.USUARIO/CU3.GestionarUsuarios.js";
+} from "../M1.USUARIO/CU3.usuario/CU3.GestionarUsuarios.js";
 import {
   getCargos,
   getCargo,
   createCargo,
   updateCargo,
   deleteCargo,
-} from "../M1.USUARIO/Cargo.js";
+} from "../M1.USUARIO/cargo/Cargo.js";
 import {
   getClientes,
   getCliente,
   updateCliente,
   deleteCliente,
   createCliente,
-} from "../M2.VENTA/CU5.GestionarClientes.js";
+} from "../M2.VENTA/CU5.cliente/CU5.GestionarClientes.js";
 import {
   getProductos,
   getProducto,
   createProducto,
   updateProducto,
   deleteProducto,
-} from "../M2.VENTA/CU6.GestionarProducto.js";
+} from "../M2.VENTA/CU6.producto/CU6.GestionarProducto.js";
 
 import {
   getRoles,
@@ -41,7 +41,7 @@ import {
   createRol,
   updateRol,
   deleteRol,
-} from "../M1.USUARIO/CU4.GestionarRoles.js";
+} from "../M1.USUARIO/CU4.rol/CU4.GestionarRoles.js";
 
 import {
   getPedidos,
@@ -49,7 +49,7 @@ import {
   createPedido,
   updatePedido,
   deletePedido,
-} from "..//M2.VENTA/CU7.GestionarPedido.js";
+} from "..//M2.VENTA/CU7.pedido/CU7.GestionarPedido.js";
 
 import {
   obtenerIdPedido,
@@ -61,54 +61,54 @@ import {
  createDetPedido,
  updateDetPedido,
  deleteDetPedido,
-}from "../M2.VENTA/CU8.GestionarDetalleVenta.js";
+}from "../M2.VENTA/CU8.detalleVenta/CU8.GestionarDetalleVenta.js";
 import{
  TotalDetalle,
  TotalPorProducto,
  obtenerCantidadProductos,
-}from "../M2.VENTA/CU9.GestionarPedidoTotalDiario.js"
+}from "../M2.VENTA/CU9.totalDiario/CU9.GestionarPedidoTotalDiario.js"
 import{
  getEntrega,
  getEntregas,
  updateEntrega,
  createEntrega,
  deleteEntrega,
-}from "../M2.VENTA/CU10.GestionarNotaEntrega.js"
+}from "../M2.VENTA/CU10.notaEntrega/CU10.GestionarNotaEntrega.js"
 import{
 getProveedor,
 getProveedors,
 createProveedor,
 deleteProveedor,
 updateProveedor,
-}from "../M3.INVENTARIO/CU11.GestionarProveedor.js"
+}from "../M3.INVENTARIO/CU11.proveedor/CU11.GestionarProveedor.js"
 import{
 getMateria,
 getMaterias,
 createMateria,
 deleteMateria,
 updateMateria,
-}from "../M3.INVENTARIO/CU12.GestionarMateriaPrima.js"
+}from "../M3.INVENTARIO/CU12.materiaPrima/CU12.GestionarMateriaPrima.js"
 import{
 getUnidad,
 getUnidades,
 createUnidad,
 updateUnidad,
 deleteUnidad,
-}from"../M3.INVENTARIO/CU14.GestionarUnidadMedida.js"
+}from"../M3.INVENTARIO/CU14.unidadMedida/CU14.GestionarUnidadMedida.js"
 import{
 getCompra,
 getCompras,
 deleteCompra,
 updateCompra,
 createCompra,
-}from"../M3.INVENTARIO/CU16.GestionarNotaCompra.js"
+}from"../M3.INVENTARIO/CU16.notaCompra/CU16.GestionarNotaCompra.js"
 import{
 getDetalleCompras,
 getDetalleCompra,
 deleteDetalleCompra,
 updateDetalleCompra,
 createDetalleCompra,
-}from"../M3.INVENTARIO/CU17.GestionarDetalleCompra.js"
+}from"../M3.INVENTARIO/CU17.detalleCompra/CU17.GestionarDetalleCompra.js"
 
 
 

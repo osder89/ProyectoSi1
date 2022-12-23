@@ -1,48 +1,47 @@
-import { pool } from "../db/db.js";
+import { pool } from "../../db/db.js";
 
-export const getMaquinarias = async (req, res) => {
+export const getRecetas = async (req, res) => {
   try {
-    const [result] = await pool.query("select * from MAQUINA ");
+    const [result] = await pool.query("select * from RECETA ");
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const getMaquinaria = async (req, res) => {
+export const getReceta = async (req, res) => {
   try {
-    const [result] = await pool.query("select * from MAQUINA where id=?", [
+    const [result] = await pool.query("select * from RECETA where id=?", [
       req.params.id,
     ]);
     if (result.length === 0) {
       return res
         .estatus(400)
-        .json({ message: "No hay ninguna maquina resgistrada" });
+        .json({ message: "No hay ninguna receta resgistrada" });
     }
     res.json(result[0]);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const createMaquinaria = async (req, res) => {
+export const createReceta = async (req, res) => {
   try {
-    const { nombre, capacidad, estado } = req.body;
+    const { nombre, descripcion } = req.body;
     const [result] = await pool.query(
-      "insert into MAQUINA( nombre, capacidad,estado ) values(?,?,?)",
-      [nombre, apellido, ci, telefono, direccion, fechaNacimiento]
+      "insert into RECETA( nombre, descripcion ) values(?,?)",
+      [nombre, descripcion]
     );
     res.json({
       id: result.insertId,
       nombre,
-      capacidad,
-      estado,
+      descripcion
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-export const updateMaquinaria = async (req, res) => {
+export const updateReceta = async (req, res) => {
   try {
-    const [result] = await pool.query("update MAQUINA set ? where id=?", [
+    const [result] = await pool.query("update RECETA set ? where id=?", [
       req.body,
       req.params.id,
     ]);
@@ -51,15 +50,15 @@ export const updateMaquinaria = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-export const deleteMaquinaria = async (req, res) => {
+export const deleteReceta = async (req, res) => {
   try {
-    const [result] = await pool.query("delete  from MAQUINA where id=?", [
+    const [result] = await pool.query("delete  from RECETA where id=?", [
       req.params.id,
     ]);
     if (result.affectedRows === 0) {
       return res
         .status(404)
-        .json({ message: "No se encuentra ninguna maquina" });
+        .json({ message: "No se encuentra ninguna  receta" });
     }
     return res.sendStatus(204);
   } catch (error) {

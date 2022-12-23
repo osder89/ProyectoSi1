@@ -1,4 +1,4 @@
-import { pool } from "../db/db.js";
+import { pool } from "../../db/db.js";
 /*Funcion que devuelve el total de los pedidos del dia*/ 
 
 export const TotalDetalle = async (req, res) => {
